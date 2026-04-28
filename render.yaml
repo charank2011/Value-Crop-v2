@@ -13,14 +13,3 @@ services:
         value: root
       - key: SPRING_DATASOURCE_PASSWORD
         sync: false
-  
-  # Frontend Service
-  - type: web
-    name: valuecrop-frontend
-    runtime: docker
-    plan: starter
-    dockerfilePath: ./Frontend/Fsad/Folder1/Dockerfile
-    port: 80
-    envVars:
-      - key: VITE_API_BASE_URL
-        value: https://valuecrop-backend.onrender.com
