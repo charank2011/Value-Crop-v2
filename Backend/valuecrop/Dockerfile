@@ -9,5 +9,5 @@ RUN mvn clean package -DskipTests
 FROM eclipse-temurin:21-jre
 WORKDIR /app
 COPY --from=build /app/target/*.war app.war
-EXPOSE 1234
-ENTRYPOINT ["java", "-jar", "app.war"]
+ENV PORT=1234
+ENTRYPOINT ["sh", "-c", "java -Dserver.port=${PORT} -jar app.war"]
