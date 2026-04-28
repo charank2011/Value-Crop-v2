@@ -9,4 +9,4 @@ EXPOSE 3306
 # COPY ./init.sql /docker-entrypoint-initdb.d/
 
 HEALTHCHECK --interval=10s --timeout=5s --retries=3 \
-  CMD mysqladmin ping -h localhost -uroot -proot || exit 1
+  CMD mysqladmin ping -h localhost -uroot -p$MYSQL_ROOT_PASSWORD || exit 1
