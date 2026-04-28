@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:1234';
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:1234';
 
 export async function authenticatedFetch(url, options = {}) {
   const token = localStorage.getItem('jwt_token');
