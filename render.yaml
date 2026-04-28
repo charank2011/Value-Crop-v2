@@ -2,25 +2,22 @@ services:
   # Database Service
   - type: pserv
     name: valuecrop-db
-    runtime: docker
+    image: mysql:8.0
     plan: standard
-    healthCheck:
-      path: /
     envVars:
       - key: MYSQL_DATABASE
         value: valuecrop
       - key: MYSQL_ROOT_PASSWORD
         sync: false
-    
+  
   # Backend Service  
   - type: web
     name: valuecrop-backend
     runtime: docker
-    plan: standard
-    buildCommand: cd Backend/valuecrop && ./mvnw clean package -DskipTests
-    startCommand: java -jar Backend/valuecrop/target/*.war
+    plan: starter
+    repo: https://github.com/charank2011/Value-Crop-v2
+    dockerfile: ./Backend/valuecrop/Dockerfile
     port: 1234
-    healthCheckPath: /
     envVars:
       - key: SPRING_DATASOURCE_URL
         value: jdbc:mysql://valuecrop-db:3306/valuecrop
@@ -28,16 +25,15 @@ services:
         value: root
       - key: SPRING_DATASOURCE_PASSWORD
         sync: false
-    
+  
   # Frontend Service
   - type: web
     name: valuecrop-frontend
     runtime: docker
-    plan: standard
-    buildCommand: cd Frontend/Fsad/Folder1 && npm install && npm run build
-    startCommand: serve -s dist -l 80
+    plan: starter
+    repo: https://github.com/charank2011/Value-Crop-v2
+    dockerfile: ./Frontend/Fsad/Folder1/Dockerfile
     port: 80
-    healthCheckPath: /
     envVars:
       - key: VITE_API_BASE_URL
         value: https://valuecrop-backend.onrender.com
