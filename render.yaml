@@ -1,22 +1,10 @@
 services:
-  # Database Service
-  - type: pserv
-    name: valuecrop-db
-    image: mysql:8.0
-    plan: standard
-    envVars:
-      - key: MYSQL_DATABASE
-        value: valuecrop
-      - key: MYSQL_ROOT_PASSWORD
-        sync: false
-  
   # Backend Service  
   - type: web
     name: valuecrop-backend
     runtime: docker
     plan: starter
-    repo: https://github.com/charank2011/Value-Crop-v2
-    dockerfile: ./Backend/valuecrop/Dockerfile
+    dockerfilePath: ./Backend/valuecrop/Dockerfile
     port: 1234
     envVars:
       - key: SPRING_DATASOURCE_URL
@@ -31,8 +19,7 @@ services:
     name: valuecrop-frontend
     runtime: docker
     plan: starter
-    repo: https://github.com/charank2011/Value-Crop-v2
-    dockerfile: ./Frontend/Fsad/Folder1/Dockerfile
+    dockerfilePath: ./Frontend/Fsad/Folder1/Dockerfile
     port: 80
     envVars:
       - key: VITE_API_BASE_URL
