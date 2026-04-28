@@ -8,7 +8,7 @@ services:
     port: 1234
     envVars:
       - key: SPRING_DATASOURCE_URL
-        value: jdbc:mysql://valuecrop-db:3306/valuecrop
+        value: jdbc:mysql://your-database-host:3306/valuecrop
       - key: SPRING_DATASOURCE_USERNAME
         value: root
       - key: SPRING_DATASOURCE_PASSWORD
