@@ -1,0 +1,76 @@
+🚀 QUICK START - RENDER DEPLOYMENT
+
+═══════════════════════════════════════════════════════════════
+
+WHAT'S INCLUDED:
+  ✓ render.yaml - Infrastructure as code for Render
+  ✓ .env.render - Environment variables template
+  ✓ RENDER_DEPLOYMENT.md - Detailed deployment guide
+  ✓ deploy-to-github.bat - Script to push to GitHub
+
+═══════════════════════════════════════════════════════════════
+
+DEPLOYMENT IN 3 STEPS:
+
+1️⃣  PUSH TO GITHUB
+   Run: deploy-to-github.bat
+   Or manually:
+   - git init
+   - git add .
+   - git commit -m "Deploy to Render"
+   - git remote add origin <your-github-url>
+   - git push -u origin main
+
+2️⃣  CREATE RENDER ACCOUNT
+   Go to: https://render.com/register
+
+3️⃣  DEPLOY FROM RENDER DASHBOARD
+   - Click: "New" → "Blueprint"
+   - Connect GitHub repository
+   - Render reads render.yaml automatically
+   - Set environment variables
+   - Click: Deploy!
+
+═══════════════════════════════════════════════════════════════
+
+ENVIRONMENT VARIABLES TO SET:
+
+Backend:
+  SPRING_DATASOURCE_PASSWORD = [Strong Password]
+
+Database:
+  MYSQL_ROOT_PASSWORD = [Strong Password]
+
+Frontend:
+  VITE_API_BASE_URL = https://valuecrop-backend.onrender.com
+
+═══════════════════════════════════════════════════════════════
+
+WHAT GETS DEPLOYED:
+
+📦 Frontend (React + Vite)
+   → https://valuecrop-frontend.onrender.com
+
+🔧 Backend (Spring Boot)
+   → https://valuecrop-backend.onrender.com
+
+🗄️  Database (MySQL)
+   → Internal only (valuecrop-db:3306)
+
+═══════════════════════════════════════════════════════════════
+
+EXPECTED BUILD TIME: 5-10 minutes per service
+
+AFTER DEPLOYMENT:
+- Monitor logs in Render dashboard
+- All services should show "Live" status
+- Frontend connects to backend automatically
+
+═══════════════════════════════════════════════════════════════
+
+HELP & DOCS:
+  📖 Full guide: Read RENDER_DEPLOYMENT.md
+  🌐 Render docs: https://render.com/docs
+  💬 Support: https://render.com/support
+
+═══════════════════════════════════════════════════════════════
