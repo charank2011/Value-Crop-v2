@@ -1,15 +1,46 @@
 services:
-  # Backend Service  
+  # 1. Private MySQL Database Service
+  - type: pserv
+    name: valuecrop-db
+    runtime: docker
+    dockerfilePath: ./Database/Dockerfile
+    disk:
+      name: mysql-data
+      mountPath: /var/lib/mysql
+      sizeGB: 1
+    envVars:
+      - key: MYSQL_ROOT_PASSWORD
+        generateValue: true
+      - key: MYSQL_DATABASE
+        value: valuecrop
+
+  # 2. Spring Boot Backend Service
   - type: web
     name: valuecrop-backend
     runtime: docker
-    plan: starter
     dockerfilePath: ./Backend/valuecrop/Dockerfile
     port: 1234
     envVars:
       - key: SPRING_DATASOURCE_URL
-        value: jdbc:mysql://your-database-host:3306/valuecrop
+        value: jdbc:mysql://valuecrop-db:3306/valuecrop
       - key: SPRING_DATASOURCE_USERNAME
         value: root
       - key: SPRING_DATASOURCE_PASSWORD
-        sync: false
+        fromService:
+          type: pserv
+          name: valuecrop-db
+          envVarKey: MYSQL_ROOT_PASSWORD
+
+  # 3. React/Vite Frontend (Static Site)
+  - type: web
+    name: valuecrop-frontend
+    runtime: static
+    rootDir: ./Frontend/Fsad/Folder1
+    buildCommand: npm install && npm run build
+    publishPath: dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        fromService:
+          type: web
+          name: valuecrop-backend
+          envVarKey: RENDER_EXTERNAL_URL
